@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        coreMonomino.RegisterOnHitAction(HandleOnHitOtherMonomino);
+        coreMonomino.RegisterOnHitOtherMonomino(HandleOnHitOtherMonomino);
         coreMonomino.RegisterOnMonominoDestroyed(HandleOnCoreMonominoDestroyed);
         bondedMonominos.Add(coreMonomino);
     }
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
         {
             sourceMonomino.LinkMonominoToSource(otherMonomino);
             otherMonomino.tag = "Player";
-            otherMonomino.RegisterOnHitAction(HandleOnHitOtherMonomino);
+            otherMonomino.RegisterOnHitOtherMonomino(HandleOnHitOtherMonomino);
             bondedMonominos.Add(otherMonomino);
         }
         else if (otherMonomino.CompareTag("NegativeMonomino"))
@@ -37,8 +37,6 @@ public class PlayerController : MonoBehaviour
             Destroy(sourceMonomino.gameObject);
             Destroy(otherMonomino.gameObject);
         }
-
-        Debug.Log("MASHOk " + JsonUtility.ToJson(bondedMonominos));
     }
 
     private void HandleOnCoreMonominoDestroyed()
